@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.17251da9.css",
-    "main.js": "/static/js/main.a2565486.js",
+    "main.js": "/static/js/main.ef2639a4.js",
     "static/media/needjob.jpg": "/static/media/needjob.107fa8e9570153dfd39e.jpg",
     "static/media/hiring.png": "/static/media/hiring.d546f5f8355ae831af1f.png",
     "index.html": "/index.html",
     "main.17251da9.css.map": "/static/css/main.17251da9.css.map",
-    "main.a2565486.js.map": "/static/js/main.a2565486.js.map"
+    "main.ef2639a4.js.map": "/static/js/main.ef2639a4.js.map"
   },
   "entrypoints": [
     "static/css/main.17251da9.css",
-    "static/js/main.a2565486.js"
+    "static/js/main.ef2639a4.js"
   ]
 }
