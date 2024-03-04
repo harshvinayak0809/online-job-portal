@@ -10,18 +10,18 @@ const Navigator = ({ handlelogout }) => {
         </Link>
       </section>
       <section>
-        <ul>
+        <li>
           <Link to='./createjobs'>Create Jobs</Link>
-        </ul>
-        <ul>
+        </li>
+        <li>
           <Link to='./jobs'>View jobs</Link>
-        </ul>
-        <ul>
+        </li>
+        <li>
           <Link to='./'>
             <FaUserAlt />
             Profile
           </Link>
-        </ul>
+        </li>
       </section>
 
       <section>
@@ -39,6 +39,7 @@ export default Navigator;
 
 const Nav = styled.nav`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
@@ -50,8 +51,9 @@ const Nav = styled.nav`
   }
   section {
     display: flex;
-    ul {
+    li {
       margin: 0 2rem;
+      list-style: none;
       a {
         color: #dfdfdf;
         text-decoration: none;

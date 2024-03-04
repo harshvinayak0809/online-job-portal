@@ -73,6 +73,7 @@ const Div = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
 `;
 const Form = styled.form`
   display: flex;

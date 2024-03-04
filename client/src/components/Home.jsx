@@ -57,6 +57,7 @@ export default Home;
 
 const Div = styled.div`
   display: flex;
+  flex-wrap: wrap;
   //   flex-direction: column;
   height: 90vh;
   color: red;

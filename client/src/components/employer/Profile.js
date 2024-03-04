@@ -98,9 +98,11 @@ const DivC = styled.div`
   height: 50%;
   border-radius: 2rem;
   box-shadow: 0 0 10px #45b7ed;
+  box-sizing: border-box;
 
   span {
     display: flex;
+    flex-wrap: wrap;
     justify-conetnt: space-around;
     margin: 0.8rem 0;
   }

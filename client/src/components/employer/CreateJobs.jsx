@@ -23,22 +23,13 @@ const CreateJobs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        `${backendUrl}/job/add`,
-        {
-          title: formData.title,
-          description: formData.description,
-          salary: formData.salary,
-          location: formData.location,
-          profileId,
-        },
-        {
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post(`${backendUrl}/job/add`, {
+        title: formData.title,
+        description: formData.description,
+        salary: formData.salary,
+        location: formData.location,
+        profileId,
+      });
       alert(response.data.message);
     } catch (error) {
       if (error.response) {
