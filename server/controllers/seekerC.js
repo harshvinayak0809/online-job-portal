@@ -1,7 +1,7 @@
-import Job from "../models/Job";
-import seeker from "../models/seeker";
+import Job from "../models/Job.js";
+import seeker from "../models/seeker.js";
 import mongoose from "mongoose";
-import Status from "../models/jobstatus";
+import Status from "../models/jobstatus.js";
 
 //registration of seeker
 export const addSeeker = async (req, res) => {
@@ -50,7 +50,9 @@ export const loginSeeker = async (req, res) => {
       if (fPassword !== password) {
         return res.status(500).json({ message: "Invalid password" });
       }
-      return res.status(200).json({ findSeeker });
+      return res
+        .status(200)
+        .json({ findSeeker, message: "Successfully loggedin " });
     }
   } catch (error) {
     return res.json({ error, message: "internal server error" });
@@ -69,5 +71,51 @@ export const getSeeker = async (req, res) => {
     }
   } catch (error) {
     return res.status(500).json(error);
+  }
+};
+
+//updating the seeker
+export const updSeeker = async (req, res) => {
+  try {
+    const {
+      seekername,
+      email,
+      password,
+      jobs,
+      phone,
+      qualification,
+      marks,
+      age,
+    } = req.body;
+    const { id } = req.params;
+    const userId = new mongoose.Types.ObjectId(id);
+    const findseeker = await seeker.findById(userId);
+    if (!findseeker) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const updateSeeker = await seeker.findByIdAndUpdate(
+      userId,
+      {
+        ...findseeker.toObject(),
+
+        seekername,
+        email,
+        password,
+        jobs,
+        phone,
+        qualification,
+        marks,
+        age,
+      },
+      {
+        new: true,
+      }
+    );
+    await updateSeeker.save();
+
+    return res.status(200).json({ message: "updated successfully" });
+  } catch (error) {
+    return res.status(500).json(error.message);
   }
 };

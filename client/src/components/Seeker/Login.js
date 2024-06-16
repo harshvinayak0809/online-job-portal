@@ -2,6 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,39 +33,54 @@ const Login = () => {
       });
       // console.log(response.data.findEmployer._id);
       localStorage.setItem("stoken", response.data.findSeeker._id);
-      navigate("../profile", { shallow: true });
+      toast.success(response.data.message);
+      setTimeout(() => {
+        navigate("../profile", { shallow: true });
+      }, 2000);
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
-        console.log(error.message);
+        toast.error(error.message);
       }
     }
   };
 
   return (
-    <Div>
-      <Form onSubmit={handleSubmit}>
-        <label htmlFor=''>Login</label>
-        <input
-          type='email'
-          placeholder='Enter your email'
-          name='email'
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type='password'
-          placeholder='Enter your password'
-          name='password'
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <button type='submit'>Login</button>
-        {/* {err && <div>{err}</div>} */}
-        Not yet registered!<Link to='/seeker/register'> Click here</Link>
-      </Form>
-    </Div>
+    <>
+      <ToastContainer />
+      <Navbar className='bg-body-tertiary' sticky='top'>
+        <Container>
+          <Navbar.Brand href='/'>Online Job Portal</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className='justify-content-end'>
+            <Navbar.Text>Designed by:Harsh vinayak</Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Div>
+        <Form onSubmit={handleSubmit}>
+          <label htmlFor=''>Login</label>
+          <input
+            type='email'
+            placeholder='Enter your email'
+            name='email'
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <input
+            type='password'
+            placeholder='Enter your password'
+            name='password'
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <button type='submit'>Login</button>
+          {/* {err && <div>{err}</div>} */}
+          Not yet registered!<Link to='/seeker/register'> Click here</Link>
+        </Form>
+      </Div>
+    </>
   );
 };
 
@@ -76,7 +95,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 30vw;
-  height: 35vh;
   justify-content: center;
   align-items: center;
   // border: 2px solid grey;

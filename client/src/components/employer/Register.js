@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -17,57 +21,79 @@ const Register = () => {
       [name]: value,
     });
   };
+
   const navigate = useNavigate();
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await axios.post(`${backendUrl}/emp/add`, {
-      companyname: formData.companyname,
-      password: formData.password,
-      email: formData.email,
-    });
-    const status = response.status;
-    if (status >= 400) {
-      alert(response.data.message);
-      navigate("/register");
-    } else {
-      navigate("../login");
+    try {
+      const response = await axios.post(`${backendUrl}/emp/add`, {
+        companyname: formData.companyname,
+        password: formData.password,
+        email: formData.email,
+      });
+
+      if (response.status >= 400) {
+        toast.error(response.data.message || "Registration failed");
+      } else {
+        toast.success(response.data.message || "Registration successful");
+
+        // Delay navigation to ensure toast is visible
+        setTimeout(() => {
+          navigate("../login");
+        }, 2000); // 2 seconds delay
+      }
+    } catch (error) {
+      toast.error("An error occurred during registration");
     }
-    return;
   };
 
   return (
-    <Div>
-      <Form action='' onSubmit={handleSubmit}>
-        <label htmlFor=''>Register</label>
-        <input
-          type='text'
-          placeholder='Enter Company name'
-          name='companyname'
-          value={formData.companyname}
-          onChange={handleChange}
-        />
-        <input
-          type='email'
-          placeholder='Enter your email'
-          name='email'
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type='password'
-          placeholder='Enter your password'
-          name='password'
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <button type='submit'>Register</button>
-        Already registered!
-        <Link to='/employer/login'> Click here to Login</Link>
-      </Form>
-    </Div>
+    <>
+      <ToastContainer />
+
+      <Navbar className='bg-body-tertiary' sticky='top'>
+        <Container>
+          <Navbar.Brand href='/'>Online Job Portal</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className='justify-content-end'>
+            <Navbar.Text>Designed by: Harsh Vinayak</Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Div>
+        <Form onSubmit={handleSubmit}>
+          <label htmlFor=''>Register</label>
+          <input
+            type='text'
+            placeholder='Enter Company name'
+            name='companyname'
+            value={formData.companyname}
+            onChange={handleChange}
+          />
+          <input
+            type='email'
+            placeholder='Enter your email'
+            name='email'
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <input
+            type='password'
+            placeholder='Enter your password'
+            name='password'
+            value={formData.password}
+            onChange={handleChange}
+            minLength='8'
+          />
+          <button type='submit'>Register</button>
+          Already registered?
+          <Link to='/employer/login'> Click here to Login</Link>
+        </Form>
+      </Div>
+    </>
   );
 };
 
@@ -79,14 +105,13 @@ const Div = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 30vw;
-  height: 35vh;
   justify-content: center;
   align-items: center;
-  // border: 2px solid grey;
   border-radius: 2rem;
   box-shadow: 0 0 10px #98c1d9;
   backdrop-filter: 10px;

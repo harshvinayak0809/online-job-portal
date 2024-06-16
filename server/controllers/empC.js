@@ -1,4 +1,4 @@
-import employer from "../models/employer";
+import employer from "../models/employer.js";
 import mongoose from "mongoose";
 import { ObjectId } from "mongoose";
 
@@ -57,6 +57,7 @@ export const updEmp = async (req, res) => {
     if (!findemp) {
       return res.status(400).json({ message: "User not found" });
     }
+
     const updateEmp = await employer.findByIdAndUpdate(
       userId,
       {

@@ -1,7 +1,7 @@
-import Job from "../models/Job";
-import Seeker from "../models/seeker";
+import Job from "../models/Job.js";
+import Seeker from "../models/seeker.js";
 import mongoose from "mongoose";
-import Status from "../models/jobstatus";
+import Status from "../models/jobstatus.js";
 //apply for a job, so update the job collection as well seeker collection
 
 // export const applyJob = async (req, res) => {

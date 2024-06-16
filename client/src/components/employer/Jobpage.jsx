@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Jobpage = () => {
   const { id } = useParams();
@@ -39,12 +41,13 @@ const Jobpage = () => {
         `http://localhost:8080/emp/job/${id}/${jid}/applicants`,
         { status: status }
       );
-      alert(res.data.message);
+      toast.success(res.data.message);
     } catch (error) {}
   };
 
   return (
     <Pdiv>
+      <ToastContainer />
       <div className='jobDiv'>
         <h2>Job Title:</h2> <h3>{job.title}</h3>
       </div>
@@ -111,6 +114,8 @@ const Pdiv = styled.div`
 const Div = styled.div`
   width: 100vw;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   height: 40%;
 

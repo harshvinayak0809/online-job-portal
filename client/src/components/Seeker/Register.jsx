@@ -2,7 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
   const [formData, setFormData] = useState({
     sname: "",
@@ -38,89 +41,106 @@ const Register = () => {
         qualification: formData.qualification,
         marks: formData.marks,
       });
-      console.log(response.data);
-      navigate("../login");
+      toast.success(response.data.message);
+      setTimeout(() => {
+        navigate("../login", { shallow: true });
+      }, 2000);
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
-        console.log(error.message);
+        toast.error(error.message);
       }
     }
   };
   return (
-    <Div>
-      <Form action='' onSubmit={handleSubmit}>
-        <label htmlFor=''>Register</label>
-        <input
-          type='text'
-          placeholder='Enter Your name'
-          name='sname'
-          value={formData.sname}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='email'
-          placeholder='Enter your email'
-          name='email'
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='password'
-          placeholder='Enter your password'
-          name='password'
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='text'
-          placeholder='Enter your phone'
-          name='phone'
-          value={formData.phone}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='number'
-          placeholder='Enter your age'
-          name='age'
-          value={formData.age}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='text'
-          placeholder='Enter your qualification'
-          name='qualification'
-          value={formData.qualification}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='text'
-          placeholder='Enter your Marks'
-          name='marks'
-          value={formData.marks}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='number'
-          placeholder='Total Experience(in months)'
-          name='experience'
-          value={formData.experience}
-          onChange={handleChange}
-          required
-        />
-        <button type='submit'>Register</button>
-        Already registered!
-        <Link to='/seeker/login'> Click here to Login</Link>
-      </Form>
-    </Div>
+    <>
+      <ToastContainer />
+      <Navbar className='bg-body-tertiary' sticky='top'>
+        <Container>
+          <Navbar.Brand href='/'>Online Job Portal</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className='justify-content-end'>
+            <Navbar.Text>Designed by:Harsh vinayak</Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Div>
+        <Form action='' onSubmit={handleSubmit}>
+          <label htmlFor=''>Register</label>
+          <input
+            type='text'
+            placeholder='Enter Your name'
+            name='sname'
+            value={formData.sname}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type='email'
+            placeholder='Enter your email'
+            name='email'
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type='password'
+            placeholder='Enter your password'
+            name='password'
+            value={formData.password}
+            onChange={handleChange}
+            required
+            minLength={8}
+          />
+          <input
+            type='text'
+            placeholder='Enter your phone'
+            name='phone'
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            minLength={10}
+          />
+          <input
+            type='number'
+            placeholder='Enter your age'
+            name='age'
+            value={formData.age}
+            onChange={handleChange}
+            required
+            min={18}
+          />
+          <input
+            type='text'
+            placeholder='Enter your qualification'
+            name='qualification'
+            value={formData.qualification}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type='number'
+            placeholder='Enter your Marks'
+            name='marks'
+            value={formData.marks}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type='number'
+            placeholder='Total Experience(in months)'
+            name='experience'
+            value={formData.experience}
+            onChange={handleChange}
+            required
+          />
+          <button type='submit'>Register</button>
+          Already registered!
+          <Link to='/seeker/login'> Click here to Login</Link>
+        </Form>
+      </Div>
+    </>
   );
 };
 
@@ -135,7 +155,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 30vw;
-  height: 35vh;
   justify-content: center;
   align-items: center;
   // border: 2px solid grey;

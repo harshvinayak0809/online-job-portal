@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AllJobs = () => {
   const [jobs, setjob] = useState([]);
@@ -19,7 +21,7 @@ const AllJobs = () => {
             },
           }
         );
-        console.log(response.data);
+        // console.log(response.data);
         setjob(response.data);
       } catch (error) {
         if (error.response) {
@@ -37,17 +39,18 @@ const AllJobs = () => {
       const apply = await axios.put(`${backendUrl}/seeker/jobs/${id}`, {
         s_id: localStorage.getItem("stoken"),
       });
-      console.log(apply.data.message);
+      toast.success(apply.data.message);
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
-        console.log(error.message);
+        console.toast.error(error.message);
       }
     }
   };
   return (
     <Div>
+      <ToastContainer />
       <ul>
         {jobs.map((item, index) => (
           <div className='card' key={index}>

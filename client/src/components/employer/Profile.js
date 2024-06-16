@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
 const Profile = ({ user, handlelogout }) => {
@@ -26,21 +28,24 @@ const Profile = ({ user, handlelogout }) => {
         password: formData.password,
         location: formData.location,
       });
-      alert(res.data.message);
+      toast.success(res.data.message);
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
-        console.log(error.message);
+        toast.error(error.message);
       }
     }
   };
 
   return (
     <Div>
+      <ToastContainer />
       {user && (
         <DivC>
           <h4>Profile</h4>
+          **Email Id cant be changed. To change please drop an email at
+          xyz@xyz.com
           <span>
             {" "}
             <h5>Comapany-name:</h5>
@@ -59,6 +64,7 @@ const Profile = ({ user, handlelogout }) => {
               value={formData.email}
               name='email'
               onChange={handleChange}
+              readOnly
             />
           </span>{" "}
           <span>
@@ -79,6 +85,7 @@ const Profile = ({ user, handlelogout }) => {
               value={formData.password}
               name='password'
               onChange={handleChange}
+              minLength='8'
             />
           </span>
           <button onClick={handleUpdate}>Update</button>

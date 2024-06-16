@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import employer from "../models/employer";
-import Job from "../models/Job";
-import Seeker from "../models/seeker";
-import Status from "../models/jobstatus";
+import employer from "../models/employer.js";
+import Job from "../models/Job.js";
+import Seeker from "../models/seeker.js";
+import Status from "../models/jobstatus.js";
 
 export const createJob = async (req, res) => {
   try {

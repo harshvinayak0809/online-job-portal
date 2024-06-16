@@ -1,5 +1,5 @@
 import express from "express";
-import { addEmp, getEmp, loginEmployer, updEmp } from "../controllers/empC";
+import { addEmp, getEmp, loginEmployer, updEmp } from "../controllers/empC.js";
 import {
   applicantJob,
   approveReject,
@@ -8,9 +8,14 @@ import {
   getJobStatus,
   getMyjobs,
   getSeekAllJobs,
-} from "../controllers/JobC";
-import { addSeeker, loginSeeker, getSeeker } from "../controllers/seekerC";
-import { applyJob } from "../controllers/applyJob";
+} from "../controllers/JobC.js";
+import {
+  addSeeker,
+  loginSeeker,
+  getSeeker,
+  updSeeker,
+} from "../controllers/seekerC.js";
+import { applyJob } from "../controllers/applyJob.js";
 
 const router = express.Router();
 
@@ -26,6 +31,7 @@ router.put("/emp/job/:id/:jid/applicants", approveReject); //approve or reject a
 
 router.post("/seeker/add", addSeeker); //seeker register
 router.post("/seeker/login", loginSeeker); //seeker login
+router.put("/seeker/update/:id", updSeeker); //seeker login
 router.get("/seeker/alljobs", getAllJobs); //show all available jobs
 router.get("/seeker/getStatus/:id/:jid", getJobStatus); //get status of a job
 router.get("/seeker/:id", getSeeker); //seeker login

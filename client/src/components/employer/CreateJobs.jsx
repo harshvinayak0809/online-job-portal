@@ -3,6 +3,8 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const CreateJobs = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -30,18 +32,19 @@ const CreateJobs = () => {
         location: formData.location,
         profileId,
       });
-      alert(response.data.message);
+      toast.success(response.data.message);
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
-        console.log(error.message);
+        toast.error(error.message);
         navigate("./");
       }
     }
   };
   return (
     <Div>
+      <ToastContainer />
       <h4>Post a Job</h4>
       <form onSubmit={handleSubmit}>
         <p>Fill out the Details carefully</p>

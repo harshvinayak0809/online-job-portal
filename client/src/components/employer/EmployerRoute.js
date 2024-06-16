@@ -33,7 +33,6 @@ const EmployerRoute = () => {
             }
           );
 
-          console.log(response.data);
           setuser(response.data);
         } catch (error) {
           console.log(error);
@@ -50,7 +49,6 @@ const EmployerRoute = () => {
   const handlelogout = () => {
     localStorage.removeItem("token");
     setuser(null);
-    console.log(user);
     navigate("./login", { replace: true });
   };
 

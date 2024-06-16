@@ -15,7 +15,7 @@ const Home = () => {
     <div>
       <Navbar className='bg-body-tertiary' sticky='top'>
         <Container>
-          <Navbar.Brand href='#home'>Online Job Portal</Navbar.Brand>
+          <Navbar.Brand href='/'>Online Job Portal</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className='justify-content-end'>
             <Navbar.Text>Designed by:Harsh vinayak</Navbar.Text>
